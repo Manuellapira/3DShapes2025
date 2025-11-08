@@ -3,24 +3,13 @@ using UnityEngine;
 public class PerspectiveCamera : MonoBehaviour
 {
     public static PerspectiveCamera Instance;
+    public float focalLenth = 5f;
+    public Vector2 vanishingPoint = Vector2.zero;
 
-    public float focalLength = 5;
+    void Awake() { Instance = this; }
 
-    private void Awake()
+    public float GetPerspective(float z)
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-            Destroy(this);
+        return focalLenth / (focalLenth + z);
     }
-
-    public float GetPerspective(float zPos)
-    {
-        return focalLength / Mathf.Max((focalLength + zPos), 0);
-    }
-
-
 }
